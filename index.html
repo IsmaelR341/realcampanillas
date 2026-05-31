@@ -579,7 +579,29 @@
     <p data-es="Calle Monopolio 2, Campanillas, Málaga · Junto al Parque Tecnológico de Andalucía" data-en="Calle Monopolio 2, Campanillas, Málaga · Next to the Andalusia Technology Park">
       Calle Monopolio 2, Campanillas, Málaga · Junto al Parque Tecnológico de Andalucía
     </p>
+    <div class="flex items-center justify-center gap-5 mt-3 flex-wrap">
+      <a href="/politica-de-privacidad.html" class="hover:text-gold transition-colors" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a>
+      <a href="/politica-de-cookies.html" class="hover:text-gold transition-colors" data-es="Política de cookies" data-en="Cookie policy">Política de cookies</a>
+      <a href="/politica-de-cancelaciones.html" class="hover:text-gold transition-colors" data-es="Política de cancelaciones" data-en="Cancellation policy">Política de cancelaciones</a>
+    </div>
   </footer>
+
+  <!-- ─── BANNER COOKIES ─── -->
+  <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 p-4 hidden">
+    <div class="max-w-4xl mx-auto bg-charcoal text-white rounded-2xl shadow-2xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4">
+      <div class="flex-1 text-sm">
+        <p class="font-semibold mb-1" data-es="Usamos cookies" data-en="We use cookies">Usamos cookies</p>
+        <p class="text-white/60 text-xs leading-relaxed">
+          <span data-es="Utilizamos cookies para mejorar tu experiencia. Más info en nuestra" data-en="We use cookies to improve your experience. More info in our">Utilizamos cookies para mejorar tu experiencia. Más info en nuestra</span>
+          <a href="/politica-de-cookies.html" class="text-gold hover:underline ml-1" data-es="política de cookies." data-en="cookie policy.">política de cookies.</a>
+        </p>
+      </div>
+      <div class="flex gap-3 flex-shrink-0">
+        <button onclick="rejectCookies()" class="text-xs border border-white/30 text-white/70 px-4 py-2 rounded-full hover:border-white hover:text-white transition-colors cursor-pointer" data-es="Solo necesarias" data-en="Only essential">Solo necesarias</button>
+        <button onclick="acceptCookies()" class="text-xs bg-gold hover:bg-[#A07830] text-white font-semibold px-5 py-2 rounded-full transition-colors cursor-pointer" data-es="Aceptar todas" data-en="Accept all">Aceptar todas</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ─── SCRIPTS ─── -->
   <script>
@@ -657,6 +679,20 @@
     document.body.classList.add('lang-es');
     translatePage('es');
 
+    // ─── COOKIES ───
+    function acceptCookies() {
+      localStorage.setItem('cookies', 'accepted');
+      document.getElementById('cookie-banner').classList.add('hidden');
+    }
+    function rejectCookies() {
+      localStorage.setItem('cookies', 'rejected');
+      document.getElementById('cookie-banner').classList.add('hidden');
+    }
+    if (!localStorage.getItem('cookies')) {
+      setTimeout(() => document.getElementById('cookie-banner').classList.remove('hidden'), 1500);
+    }
+
+    // ─── FADE-IN ───
     // Intersection Observer for fade-in
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
